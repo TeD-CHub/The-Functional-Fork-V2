@@ -4,16 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuBtn = document.getElementById("menuBtn");
   const navLinks = document.getElementById("navLinks");
 
-  // Mobile menu toggle
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-  });
+ menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
 
-  // Close menu when a link is clicked
-  document.querySelectorAll("#navLinks a").forEach(link => {
-    link.addEventListener("click", () => navLinks.classList.remove("active"));
-  });
-
+document.querySelectorAll("#navLinks a").forEach(link => {
+  link.addEventListener("click", () => navLinks.classList.remove("active"));
+});
   // Smooth scroll enhancement
   const links = document.querySelectorAll('a[href^="#"]');
   links.forEach(link => {

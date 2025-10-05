@@ -123,9 +123,18 @@ body {
   display: none;
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: var(--primary);
   cursor: pointer;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  z-index: 1100;
+}
+@media (max-width: 768px) {
+  #menuBtn {
+    display: block;
+  }
 }
 
 /* ========== HERO ========== */
@@ -376,7 +385,7 @@ details[open] summary {
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   #menuBtn {
-    display: block;
+    display: block; /* Show hamburger menu on mobile */
   }
 
   #navLinks {
@@ -413,7 +422,7 @@ details[open] summary {
     padding: 6rem 1rem;
   }
 }
-/* 🌿 FUNCTIONAL FORK - NAVIGATION BAR */
+/* FUNCTIONAL FORK - NAVIGATION BAR */
 
 .site-header {
   position: sticky;
@@ -530,59 +539,44 @@ details[open] summary {
 }
 
 /* MOBILE MENU */
+/* MOBILE MENU */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
-  }
-
-  .navbar {
+  #navLinks {
+    display: flex;                /* make flex instead of hidden for smoother transition */
+    flex-direction: column;
+    gap: 1.5rem;
+    background: var(--light);     /* cream background */
     position: fixed;
-    top: 70px;
-    right: -100%;
+    top: 70px;                     /* below header */
+    right: -100%;                  /* hide offscreen */
     width: 75%;
     height: calc(100vh - 70px);
-    background: #FFF8E1; /* Cream background */
+    padding: 2rem;
+    border-radius: 0 0 0 12px;
     box-shadow: -2px 0 15px rgba(0,0,0,0.1);
     transition: right 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-top: 2rem;
+    z-index: 1050;
   }
 
-  .navbar.open {
-    right: 0;
+  #navLinks.active {
+    right: 0;                      /* slide in */
   }
 
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 2rem;
-    gap: 1.2rem;
+  #navLinks li a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--dark);            /* visible against light background */
+    text-decoration: none;
   }
 
-  .nav-link {
-    font-size: 1.1rem;
-  }
-
-  .nav-btn {
-    align-self: center;
-    background: #F9A825; /* Lemon Yellow */
-    color: #333;
-  }
-  .nav-btn:hover {
-    background: #E0E0E0; /* Warm Beige hover */
-    color: #4CAF50;
-  }
-
-  /* Animate Hamburger to 'X' */
-  .menu-toggle.open .bar:nth-child(1) {
-    transform: rotate(45deg) translateY(8px);
-  }
-  .menu-toggle.open .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .menu-toggle.open .bar:nth-child(3) {
-    transform: rotate(-45deg) translateY(-8px);
+  #menuBtn {
+    display: block;
+    position: fixed;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    z-index: 1100;
+    color: var(--primary);
   }
 }
+/* END NAVIGATION BAR */
