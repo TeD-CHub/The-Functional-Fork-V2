@@ -126,6 +126,14 @@
     ]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VXWEWLHDL9"></script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+   gtag('config', 'G-VXWEWLHDL9');
+  </script>
 </head>
 
 <body>
@@ -135,7 +143,10 @@
       <h1 class="site-title">The Functional Fork</h1>
     </div>
     <nav class="navbar">
-      <button id="menuBtn" aria-label="Toggle Menu">☰</button>
+      <button id="menuBtn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="navLinks">
+        ☰
+      </button>
+
       <ul id="navLinks">
         <li><a href="#home">Home</a></li>
         <li><a href="#blog">Blog</a></li>
@@ -256,12 +267,10 @@
   <input type="text" name="_honeypot" style="display:none">
 
   <!-- Redirect after successful submission (optional) -->
-  <input type="hidden" name="_redirect" value="https://yourwebsite.com/thank-you.html">
-
+  <input type="hidden" name="_redirect" value="https://the-functional-fork.vercel.app/thank-you.html">
   <button type="submit">Send Message</button>
-   </form>
-
-    </div>
+  </form>
+  </div>
   </section>
 
   <footer class="site-footer">
