@@ -1,13 +1,15 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: TeD-CHub/The-Functional-Fork
   branch: main
+  auth_endpoint: https://functional-fork-cms-auth.vercel.app
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 publish_mode: editorial_workflow
 
-site_url: "https://the-functional-fork.vercel.app"
+site_url: "https://the-functional-fork.vercel.app/"
 logo_url: "https://the-functional-fork.vercel.app/images/logo.jpeg"
 
 collections:
@@ -25,3 +27,4 @@ collections:
       - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
       - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
+
