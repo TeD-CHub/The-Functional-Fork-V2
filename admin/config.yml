@@ -1,19 +1,27 @@
 backend:
   name: git-gateway
-  branch: main   # or 'master' if that’s your repo’s default branch
+  branch: main
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
+publish_mode: editorial_workflow
+
+site_url: "https://the-functional-fork.vercel.app"
+logo_url: "https://the-functional-fork.vercel.app/images/logo.jpeg"
+
 collections:
-  - name: "blog"
+  - name: "posts"
     label: "Blog Posts"
     folder: "posts"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
-      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+      - { label: "SEO Description", name: "seo_description", widget: "text", required: false }
+      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
