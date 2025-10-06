@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TeD-CHub/The-Functional-Fork
+  repo: ted-chub/the-functional-fork
   branch: main
   auth_endpoint: https://functional-fork-cms-auth.vercel.app
 
