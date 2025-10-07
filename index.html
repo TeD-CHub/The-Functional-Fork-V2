@@ -19,6 +19,9 @@
 
   <link rel="icon" href="images/logo.png" type="image/png" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  
 
   <!-- STRUCTURED DATA: Website + Blog + Services + FAQ -->
   <script type="application/ld+json">
@@ -166,26 +169,26 @@
 
   <section class="blog-section" id="blog">
     <h2>Recent Blog Posts</h2>
-    <div class="blog-container">
+    <div id= "blogcontainer" class="blog-container">
       <article class="blog-card">
         <img src="images/blog1.jpg" alt="Food microbiology lab" loading="lazy" />
         <h3>Understanding Food Microbiology</h3>
         <p>Explore the invisible world that keeps our food safe and nutritious.</p>
-        <a href="#" class="learn-btn">Learn More</a>
+        <a href="blog/Food-Microbiology.html" class="learn-btn">Learn More</a>
       </article>
 
       <article class="blog-card">
         <img src="images/blog2.jpg" alt="Functional food ingredients" loading="lazy" />
         <h3>The Future of Functional Foods</h3>
         <p>How bioactive compounds are revolutionizing the food industry.</p>
-        <a href="#" class="learn-btn">Learn More</a>
+        <a href="blog/Functional-Foods.html" class="learn-btn">Learn More</a>
       </article>
 
       <article class="blog-card">
         <img src="images/blog3.jpg" alt="Food quality lab" loading="lazy" />
         <h3>Quality Assurance in Food Production</h3>
         <p>Ensuring every bite meets safety and quality standards.</p>
-        <a href="#" class="learn-btn">Learn More</a>
+        <a href="blog/Quality-Assurance.html" class="learn-btn">Learn More</a>
       </article>
     </div>
   </section>
@@ -272,8 +275,36 @@
   </section>
 
   <footer class="site-footer">
-    <p>© 2025 The Functional Fork | Food Science & Technology Insights</p>
-  </footer>
+  <div class="footer-content container">
+    <div class="footer-about">
+      <img src="images/logo.jpeg" alt="The Functional Fork Logo" class="footer-logo" />
+      <h3>The Functional Fork</h3>
+      <p>Exploring the science of food, nutrition, and innovation, inspiring healthier, sustainable living through knowledge and technology.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/thefunctionalfork" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/company/thefunctionalfork" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 <strong>The Functional Fork</strong> | Food Science & Technology Insights</p>
+  </div>
+ </footer>
 
   <script src="script.js"></script>
 </body>
