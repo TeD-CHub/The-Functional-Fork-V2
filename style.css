@@ -796,15 +796,32 @@ details[open] summary {
 
 .learn-btn {
   display: inline-block;
-  color: #fff;
-  background: #4caf50;
-  padding: 0.5rem 1.2rem;
-  border-radius: 6px;
+  color: #fff;                  /* white text */
+  background-color: #4caf50;    /* fresh green */
+  padding: 0.7rem 1.6rem;
+  border-radius: 12px;          /* softer corners */
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
-  transition: background 0.3s;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+  margin: 1rem auto 0 auto;     /* center horizontally */
 }
 
 .learn-btn:hover {
-  background: #388e3c;
+  background-color: #f9a825;    /* lemon yellow on hover */
+  color: var(--dark);           /* text darkens for contrast */
+  transform: translateY(-3px);  /* subtle lift */
+  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+/* Animated arrow */
+.learn-btn::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.learn-btn:hover::after {
+  transform: translateX(6px);
 }
