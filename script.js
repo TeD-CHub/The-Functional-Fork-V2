@@ -145,4 +145,3 @@ document.addEventListener("DOMContentLoaded", () => {
       blogContainer.innerHTML = "<p>Failed to load blogs. Please try again later.</p>";
     });
 });
-
