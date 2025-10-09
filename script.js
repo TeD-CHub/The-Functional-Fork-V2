@@ -121,7 +121,7 @@ document.querySelectorAll('.blog-card, .service-card, .faq-container details, .c
 import { createClient } from "https://cdn.jsdelivr.net/npm/@sanity/client@7.12.0/+esm";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const blogContainer = document.getElementById("blogcontainer");
+  const blogContainer = document.getElementById("blogContainer");
 
   const client = createClient({
     projectId: "bf7a28t9",      // ✅ your Sanity project ID
