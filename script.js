@@ -118,43 +118,37 @@ document.querySelectorAll('.blog-card, .service-card, .faq-container details, .c
   observer.observe(el);
 });
 // ========== FETCH BLOGS FROM SANITY ==========
-import { createClient } from "https://cdn.jsdelivr.net/npm/@sanity/client@7.12.0/+esm";
+import { client } from './sanityClient.js';  // import the client
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const blogContainer = document.getElementById("blogContainer");
+document.addEventListener("DOMContentLoaded", () => {
+  const blogContainer = document.getElementById("blogcontainer");
 
-  const client = createClient({
-    projectId: "bf7a28t9",      // ✅ your Sanity project ID
-    dataset: "production",
-    apiVersion: "2025-10-09",
-    useCdn: true,                // faster, cached reads
-  });
+  // GROQ query to fetch blog posts
+  const query = `*[_type == "blog"] | order(publishedAt desc){
+    title,
+    "image": mainImage.asset->url,
+    description,
+    slug
+  }`;
 
-  try {
-    const blogs = await client.fetch(`*[_type == "post"]{_id, title, slug, mainImage{asset->{url}}, excerpt}`);
+  client.fetch(query).then((blogs) => {
+    blogContainer.innerHTML = ""; // clear existing content
 
-    blogContainer.innerHTML = ""; // clear placeholder blogs
-
-    if (blogs.length === 0) {
-      blogContainer.innerHTML = "<p>No blog posts found yet.</p>";
-      return;
-    }
-
-    blogs.forEach((post) => {
+    blogs.forEach((blog) => {
       const card = document.createElement("article");
       card.classList.add("blog-card");
 
       card.innerHTML = `
-        <img src="${post.mainImage?.asset?.url || "images/default.jpg"}" alt="${post.title}" loading="lazy" />
-        <h3>${post.title}</h3>
-        <p>${post.excerpt || "Read more about this topic."}</p>
-        <a href="blog/${post.slug?.current || "#"}" class="learn-btn">Learn More</a>
+        <img src="${blog.image}" alt="${blog.title}" loading="lazy"/>
+        <h3>${blog.title}</h3>
+        <p>${blog.description}</p>
+        <a href="blog/blog.html?slug=${blog.slug.current}" class="learn-btn">Learn More</a>
       `;
 
       blogContainer.appendChild(card);
     });
-  } catch (error) {
-    console.error("Error fetching blogs:", error);
+  }).catch((err) => {
+    console.error("Error fetching blogs:", err);
     blogContainer.innerHTML = "<p>Failed to load blogs. Please try again later.</p>";
-  }
+  });
 });

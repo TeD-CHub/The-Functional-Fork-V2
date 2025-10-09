@@ -1,67 +1,41 @@
-// blog.js
+import { client } from '../sanityClient.js';
 
-// Define your blog posts here
-const blogPosts = {
-  "food-microbiology": {
-    title: "Understanding Food Microbiology",
-    date: "October 5, 2025",
-    image: "images/blog1.jpg",
-    content: `
-      <p>Food microbiology explores the microorganisms that influence the safety, quality, and nutritional value of foods.</p>
-      <h2>The Role of Microbes in Food</h2>
-      <p>Some microbes help ferment foods like yogurt, while others can cause spoilage or foodborne illness.</p>
-      <p>Understanding them ensures safe and high-quality food production.</p>
-    `
-  },
-
-  "functional-foods": {
-    title: "The Future of Functional Foods",
-    date: "October 6, 2025",
-    image: "images/blog2.jpg",
-    content: `
-      <p>Functional foods provide health benefits beyond basic nutrition — think probiotics, omega-3s, and plant sterols.</p>
-      <h2>Why They Matter</h2>
-      <p>They help manage health issues like digestion, heart function, and immunity naturally.</p>
-    `
-  },
-
-  "quality-assurance": {
-    title: "Quality Assurance in Food Production",
-    date: "October 7, 2025",
-    image: "images/blog3.jpg",
-    content: `
-      <p>Quality assurance ensures that every product meets safety, quality, and regulatory standards.</p>
-      <h2>Importance</h2>
-      <p>Implementing robust QA systems helps prevent contamination and protect consumer health.</p>
-    `
-  }
-};
-
-// Get the blog ID from the URL
+// Get slug from URL query: blog.html?slug=your-post-slug
 const params = new URLSearchParams(window.location.search);
-const blogId = params.get("id");
-const container = document.getElementById("blog-content");
+const slug = params.get('slug');
 
-// Display the correct post or a 404 message
-if (blogId && blogPosts[blogId]) {
-  const post = blogPosts[blogId];
-  container.innerHTML = `
-    <article class="blog-post">
-      <img src="${post.image}" alt="${post.title}" class="blog-hero-image" />
-      <div class="blog-info">
-        <h1>${post.title}</h1>
-        <p class="blog-date">${post.date}</p>
-        <div class="blog-text">${post.content}</div>
-      </div>
-      <a href="index.html#blog" class="back-btn">← Back to Blog</a>
-    </article>
-  `;
+const blogContainer = document.getElementById('blogPost');
+
+if (!slug) {
+  blogContainer.innerHTML = '<p>Blog not found.</p>';
 } else {
-  container.innerHTML = `
-    <div class="not-found">
-      <h2>Blog Not Found</h2>
-      <p>The article you're looking for doesn’t exist.</p>
-      <a href="index.html#blog" class="back-btn">← Back to Blog</a>
-    </div>
-  `;
+  const query = `*[_type=="blog" && slug.current == $slug][0]{
+    title,
+    "image": mainImage.asset->url,
+    body
+  }`;
+
+  client.fetch(query, { slug }).then((post) => {
+    if (!post) {
+      blogContainer.innerHTML = '<p>Blog not found.</p>';
+      return;
+    }
+
+    document.getElementById('title').textContent = post.title;
+    document.getElementById('image').src = post.image;
+    document.getElementById('image').alt = post.title;
+
+    // Assuming post.body is Portable Text from Sanity
+    const contentEl = document.getElementById('content');
+    post.body.forEach(block => {
+      if (block._type === 'block') {
+        const p = document.createElement('p');
+        p.textContent = block.children.map(c => c.text).join('');
+        contentEl.appendChild(p);
+      }
+    });
+  }).catch(err => {
+    console.error(err);
+    blogContainer.innerHTML = '<p>Failed to load blog.</p>';
+  });
 }
