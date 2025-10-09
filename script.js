@@ -9,11 +9,9 @@ const navLinks = document.getElementById('navLinks');
 menuBtn.addEventListener('click', () => {
   navLinks.classList.toggle('active');
 
-  // Toggle accessibility attributes
   const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
   menuBtn.setAttribute('aria-expanded', !expanded);
 
-  // Toggle icon
   menuBtn.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
 });
 
@@ -88,7 +86,7 @@ if (contactForm) {
   });
 }
 
-// ======== TOAST NOTIFICATION (Organic Style) ========
+// ======== TOAST NOTIFICATION ========
 function showToast(message) {
   const toast = document.createElement('div');
   toast.textContent = message;
@@ -101,7 +99,7 @@ function showToast(message) {
   }, 2500);
 }
 
-// ======== ORGANIC SCROLL REVEAL ANIMATIONS ========
+// ======== SCROLL REVEAL ========
 const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -117,13 +115,15 @@ const observer = new IntersectionObserver(
 document.querySelectorAll('.blog-card, .service-card, .faq-container details, .contact-form, .contact-image img').forEach((el) => {
   observer.observe(el);
 });
+
 // ========== FETCH BLOGS FROM SANITY ==========
-import { client } from './sanityClient.js';  // import the client
+// import { client } from './sanityClient.js';  // ✅ import the client
 
-document.addEventListener("DOMContentLoaded", () => {
-  const blogContainer = document.getElementById("blogcontainer");
+document.addEventListener("DOMContentLoaded", async () => {
+  const blogContainer = document.getElementById("blogContainer");
 
-  // GROQ query to fetch blog posts
+  if (!blogContainer) return;
+
   const query = `*[_type == "blog"] | order(publishedAt desc){
     title,
     "image": mainImage.asset->url,
@@ -131,8 +131,14 @@ document.addEventListener("DOMContentLoaded", () => {
     slug
   }`;
 
-  client.fetch(query).then((blogs) => {
-    blogContainer.innerHTML = ""; // clear existing content
+  try {
+    const blogs = await client.fetch(query);
+    blogContainer.innerHTML = "";
+
+    if (!blogs.length) {
+      blogContainer.innerHTML = "<p>No blog posts found yet.</p>";
+      return;
+    }
 
     blogs.forEach((blog) => {
       const card = document.createElement("article");
@@ -147,8 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       blogContainer.appendChild(card);
     });
-  }).catch((err) => {
+  } catch (err) {
     console.error("Error fetching blogs:", err);
     blogContainer.innerHTML = "<p>Failed to load blogs. Please try again later.</p>";
-  });
+  }
 });

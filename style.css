@@ -462,7 +462,7 @@ h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: url('images/leaf-overlay.png') center/cover no-repeat;
+  background: url('images/leaf-overlay.jpg') center/cover no-repeat;
   opacity: 0.08; /* subtle watermark effect */
   pointer-events: none;
 }
@@ -796,8 +796,8 @@ h2 {
 .faq-container details,
 .contact-form,
 .contact-image img {
-  opacity: 0;
-  transform: translateY(40px);
+  opacity: 1; /* make visible by default */
+  transform: translateY(0);
   transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
